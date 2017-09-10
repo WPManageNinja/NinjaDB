@@ -19,6 +19,8 @@ spl_autoload_register(function ($class) {
     require $file;
 });
 // make available ninjaDB as global scope
-function ninjaDB($table = false) {
-	return new NinjaDB\BaseModel($table);
+if(!function_exists('ninjaDB')) {
+	function ninjaDB($table = false) {
+		return new NinjaDB\BaseModel($table);
+	}
 }

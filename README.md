@@ -224,4 +224,4 @@ If you find any typo or extend any functionality then please edit and send a pul
 *If you would like to implement any of the TODO please feel free to do and do a pull request*
 
 ___
-&copy; 2017 [WPManageNinja](https://wpmanageninja.com/). Licensed under MIT license.
+&copy; 2017 [WPManageNinja](https://wpmanageninja.com/). Licensed under GPLv3 license.

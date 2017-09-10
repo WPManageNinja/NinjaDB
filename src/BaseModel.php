@@ -196,7 +196,7 @@ class BaseModel
 				}
 				return $result;
 			} else {
-				return $this->throwError("Where clause does not exist, Please add where clause first");
+				return $this->throwError(__("Where clause does not exist, Please add where clause first", 'ninjadb'));
 			}
 		}
 
@@ -221,7 +221,7 @@ class BaseModel
 				}
 				return $this->db->delete($this->selected_table, $whereArray, $bindings);
 			} else {
-				return $this->throwError("Where clause does not exist, Please add where clause first");
+				return $this->throwError(__("Where clause does not exist, Please add where clause first", 'ninjadb'));
 			}
 
 		}
