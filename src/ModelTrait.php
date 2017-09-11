@@ -31,6 +31,21 @@ trait ModelTrait {
 		return $this;
 	}
 
+    /**
+     * @param array $selects
+     *
+     * @usage ninjaDB()->selectDistinct([])
+     *
+     * @return $this
+     */
+    public function selectDistinct($selects) {
+        $this->select($selects);
+
+        $this->statements['distinct'] = true;
+
+        return $this;
+    }
+
 	/**
 	 * @param string|array $key
 	 * @param string $operator
@@ -176,7 +191,7 @@ trait ModelTrait {
 		}
 
 		$sqlArray = array(
-			'SELECT',
+			'SELECT'.(isset($this->statements['distinct']) ? ' DISTINCT' : ''),
 			isset($this->statements['selects']) ? implode(', ', $this->statements['selects']) : '*',
 			'FROM',
 			$this->selected_table,
