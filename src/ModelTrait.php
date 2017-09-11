@@ -369,6 +369,14 @@ trait ModelTrait {
 		return $this->lastQueryInfo;
 	}
 
+	/**
+	 * @description: Get Selected table name
+	 * @return string
+	 */
+	public function getSelectedTable() {
+		return $this->selected_table;
+	}
+
 
 	/**
 	 * Reset the query object

@@ -157,7 +157,9 @@ class BaseModel
 		 */
 		public function insert($data, $format = false) {
 			$this->db->insert($this->selected_table, $data, $format);
-			return $this->db->insert_id;
+			$insertId = $this->db->insert_id;
+			$this->reset();
+			return $insertId;
 		}
 
 		/**
@@ -190,7 +192,7 @@ class BaseModel
 				}
 
 				$result = $this->db->update($this->selected_table, $data, $whereArray, null, $bindings);
-
+				$this->reset();
 				if(false === $result) {
 					return $this->throwError($this->db->last_error);
 				}
@@ -208,7 +210,7 @@ class BaseModel
 		 */
 		public function delete($indexID = false, $filed = 'id') {
 
-			if($indexID === false) {
+			if($indexID) {
 				$this->where($filed, $indexID);
 			}
 
@@ -219,7 +221,9 @@ class BaseModel
 					$whereArray[ $where['key'] ] = $where['value'];
 					$bindings[] = $this->getValuePlaceholder( $where['value'] );
 				}
-				return $this->db->delete($this->selected_table, $whereArray, $bindings);
+				$result = $this->db->delete($this->selected_table, $whereArray, $bindings);
+				$this->reset();
+				return $result;
 			} else {
 				return $this->throwError(__("Where clause does not exist, Please add where clause first", 'ninjadb'));
 			}
