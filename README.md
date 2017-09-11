@@ -19,7 +19,7 @@ require 'NinjaDB/autoload.php';
 
 $table = 'post'; // Make sure you don't add db predix; 
 
-//You can just use globla function ( Recommended )
+//You can just use global function ( Recommended )
 $ninjaTable = ninjaDB($table);
 
 
@@ -219,7 +219,7 @@ If you find any typo or extend any functionality then please edit and send a pul
 - [ ] whereNotBetween
 - [ ] Having
 - [ ] GroupBy
-- [ ] selectDistinct
+- [x] ~~selectDistinct~~
 
 *If you would like to implement any of the TODO please feel free to do and do a pull request*
 
