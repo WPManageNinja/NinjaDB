@@ -91,12 +91,15 @@ $query = ninjaDB('my_table')->select('*');
 
 #### Multiple Selects
 ```PHP
-->select(array('myfield1', 'myfield2', 'amyfield3'));
+->select(array('myfield1', 'myfield2', 'myfield3'));
 ```
 
 Using select method multiple times `select('a')->select('b')` will also select `a` and `b`. Can be useful if you want to do conditional selects (within a PHP `if`).
 
-
+#### Select Distinct
+```PHP
+->selectDistinct(array('myfield1', 'myfield2', 'myfield3'));
+```
 
 #### Get All
 Return an array of objects.
