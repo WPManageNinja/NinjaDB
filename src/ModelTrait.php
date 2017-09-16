@@ -100,6 +100,17 @@ trait ModelTrait {
 		return $this;
 	}
 
+    /**
+     * @param       $key
+     * @param array $values
+     *
+     * @return $this
+     */
+    public function whereIn($key, $values)
+    {
+        return $this->where($key, 'IN', $values);
+    }
+
 	/**
 	 * @param $string
 	 * @param bool|array $columns

@@ -208,9 +208,9 @@ class BaseModel
 		 */
 		public function delete($indexID = false, $filed = 'id') {
 
-			if($indexID === false) {
-				$this->where($filed, $indexID);
-			}
+//			if($indexID === false) {
+//				$this->where($filed, $indexID);
+//			}
 
 			if(isset($this->statements['wheres']) && count($this->statements['wheres'])) {
 				$whereArray = array();
