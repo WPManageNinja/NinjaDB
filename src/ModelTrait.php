@@ -317,7 +317,14 @@ trait ModelTrait {
 					'operator' => $statement['operator'],
 					'is_search' => false
 				];
-			} else {
+			} elseif ($statement['operator'] == 'IN') {
+                $values = is_array($statement['value']) ? $statement['value'] : [$statement['value']];
+
+                $criteria .= $statement['joiner'].' '.$statement['key'].' '.$statement['operator'].' ('
+                             .implode(', ', array_fill(0, count($values), '%s')).')';
+
+                $this->bindings = array_merge($this->bindings, $values);
+            } else {
 				$valuePlaceholder = $this->getValuePlaceholder($statement['value']);
 				$criteria .= $statement['joiner'] . ' ' . $statement['key'] . ' ' . $statement['operator'] . ' '
 				             . $valuePlaceholder . ' ';
