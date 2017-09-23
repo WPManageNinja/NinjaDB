@@ -193,24 +193,39 @@ trait ModelTrait {
 
 	/**
 	 * @description: Get sql from builder
+	 * @param string $type
+	 *
 	 * @return string
+	 * @internal param $ : $type
 	 */
-	public function getSQL() {
+	public function getSQL($type = 'select') {
 		$wheres = '';
 		if( isset($this->statements['wheres']) ) {
 			$wheres = $this->handleWheres($this->statements['wheres']);
 		}
-
+		$typeArray = [];
+		if($type == 'select') {
+			$typeArray = array(
+				'SELECT'.(isset($this->statements['distinct']) ? ' DISTINCT' : ''),
+				isset($this->statements['selects']) ? implode(', ', $this->statements['selects']) : '*',
+				'FROM'
+			);
+		} else if($type == 'delete') {
+			$typeArray = array(
+				'DELETE',
+				'FROM'
+			);
+		}
+		
 		$sqlArray = array(
-			'SELECT'.(isset($this->statements['distinct']) ? ' DISTINCT' : ''),
-			isset($this->statements['selects']) ? implode(', ', $this->statements['selects']) : '*',
-			'FROM',
 			$this->selected_table,
 			$wheres,
 			isset($this->statements['order_by']) ? $this->statements['order_by'] : '',
 			isset($this->statements['limit']) ? $this->statements['limit'] : '',
 			isset($this->statements['offset']) ? $this->statements['offset'] : '',
 		);
+		
+		$sqlArray = array_merge($typeArray, $sqlArray);
 		
 		return $this->concatSQLArray($sqlArray);
 	}
@@ -224,7 +239,7 @@ trait ModelTrait {
 	public function getSqlStatement( $type = 'query', $field = false ) {
 		$statement = false;
 		if($type == 'query') {
-			return $this->prepare();
+			return $this->prepare('select');
 		}
 		else if($type == 'count' ) {
 			$oldStatements = $this->statements;
@@ -275,11 +290,11 @@ trait ModelTrait {
 	 * GET SQL
 	 * @return string
 	 */
-	public function prepare() {
-		$sql = $this->getSQL();
+	public function prepare($type = 'select') {
+		$sql = $this->getSQL($type);
 		if(count($this->bindings)) {
 			$sql = $this->db->prepare( $sql, $this->bindings );
-		} 
+		}
 		return $sql;
 	}
 
@@ -367,7 +382,7 @@ trait ModelTrait {
 	 * @return void
 	 */
 	public function setLastQueryInfo() {
-		if(WP_DEBUG) {
+		if(defined('WP_DEBUG') && WP_DEBUG) {
 			$this->lastQueryInfo = array(
 				'table' => $this->selected_table,
 				'statements' => $this->statements,

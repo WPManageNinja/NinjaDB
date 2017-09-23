@@ -209,11 +209,13 @@ class BaseModel
 		 * @return bool|false|int
 		 */
 		public function delete($indexID = false, $filed = 'id') {
-            
-//			if($indexID === false) {
-//				$this->where($filed, $indexID);
-//			}
-
+			
+			if($indexID) {
+				$result = $this->db->delete($this->selected_table, array($filed => $indexID));
+				$this->reset();
+				return $result;
+			}
+			
 			if(isset($this->statements['wheres']) && count($this->statements['wheres'])) {
 				$whereArray = array();
 				$bindings   = [];
@@ -221,7 +223,7 @@ class BaseModel
 					$whereArray[ $where['key'] ] = $where['value'];
 					$bindings[] = $this->getValuePlaceholder( $where['value'] );
 				}
-				$result = $this->db->delete($this->selected_table, $whereArray, $bindings);
+				$result = $this->db->query($this->prepare('delete'));
 				$this->reset();
 				return $result;
 			} else {
