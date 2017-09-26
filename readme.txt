@@ -116,6 +116,14 @@ Basic syntax is `(fieldname, operator, value)`, if you give two parameters then 
         ->whereNot('age', '>', 25)
         ->orWhere('description', 'LIKE', '%query%');
 
+
+
+### whereIn
+
+    ninjaDB('my_table')
+        ->whereIn( 'id', array(1,2,3) ) 
+        ->get();
+        
 ### Limit and Offset
 
     ->limit(30);
@@ -182,13 +190,13 @@ If you find any typo or extend any functionality then please edit and send a pul
 
 ## TODO
 - [ ]  join()
-- [ ]  whereIN()
+- [x]  whereIN()
 - [ ]  whereNotIN()
 - [ ] whereBetween
 - [ ] whereNotBetween
 - [ ] Having
 - [ ] GroupBy
-- [ ] selectDistinct
+- [x] selectDistinct
 
 *If you would like to implement any of the TODO please feel free to do and do a pull request*
 

@@ -144,6 +144,14 @@ ninjaDB('my_table')
     ;
 ```
 
+### whereIn
+
+```PHP
+ninjaDB('my_table')
+    ->whereIn('id', [1,2,3]) 
+    ->get();
+```
+
 ### Limit and Offset
 ```PHP
 ->limit(30);
@@ -216,7 +224,7 @@ If you find any typo or extend any functionality then please edit and send a pul
 
 ## TODO
 - [ ]  join()
-- [ ]  whereIN()
+- [x]  ~~whereIN()~~
 - [ ]  whereNotIN()
 - [ ] whereBetween
 - [ ] whereNotBetween
