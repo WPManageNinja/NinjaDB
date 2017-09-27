@@ -1,3 +1,5 @@
+![NinjaDB](https://ps.w.org/ninjadb/assets/banner-1544x500.png)
+
 # NinjaDB 
 ## Query Builder Database Wrapper for WordPress
 
